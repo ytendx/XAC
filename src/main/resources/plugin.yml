@@ -1,0 +1,6 @@
+name: XAC
+version: 1.0
+author: ytendx
+main: de.ytendx.xac.XACMain
+commands:
+  xac:
