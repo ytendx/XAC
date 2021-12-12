@@ -8,7 +8,7 @@ ______________________________
 
 ### Installing the Plugin
 
-Download the newest version of the plugin at .... or at the releases tab, go to your server folder
+Download the newest version of the plugin at https://www.spigotmc.org/resources/xanticheat.98334/ or at the releases tab, go to your server folder
 put the jar in the plugins folder and have fun.
 
 
