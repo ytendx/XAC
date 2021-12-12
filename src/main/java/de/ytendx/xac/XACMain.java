@@ -76,7 +76,6 @@ public class XACMain extends JavaPlugin {
 
         new RangeCheck(this);
         new IrregularMovementCheck(this);
-        new TickCheck(this);
         new FlyCheck(this);
         new FastBreakPlaceCheck(this);
         new VelocityCheck(this);
