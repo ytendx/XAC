@@ -11,24 +11,33 @@ import de.ytendx.xac.notify.AuthorNotifyListener;
 import de.ytendx.xac.utils.ServerWatchUtil;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.nio.file.Files;
+import java.util.Locale;
 
 public class XACMain extends JavaPlugin {
 
 
+    public static final String PREFIX = "§c§lXAC §8| §7";
+    public static final String VERSION = "1.0-BETA";
+
     private static ServerWatchUtil serverWatchUtil;
     private static XACMain instance;
-    public static final String PREFIX = "§c§lXAC §8| §7";
     private XACConfig config;
+    private int serverVersion;
     @Getter
     private FalseDetectionAssistant detectionAssistant;
 
     public boolean isSilent() {
         return config.isSilent();
+    }
+
+    public int getServerVersion() {
+        return serverVersion;
     }
 
     public XACConfig getXACConfig() {
@@ -53,6 +62,14 @@ public class XACMain extends JavaPlugin {
 
         serverWatchUtil = new ServerWatchUtil(this);
         detectionAssistant = new FalseDetectionAssistant();
+        serverVersion = Integer.parseInt(Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].replaceAll("v1.", "")
+                .replaceAll(".R1", "").replaceAll(".R2", "").replaceAll(".R3", "").replaceAll(".R4", "").toLowerCase(Locale.ROOT));
+        if(serverVersion == 0){
+            System.out.println("[XAC] Unable to load server version. (Custom version?)");
+            serverVersion = 8;
+        }else{
+            System.out.println("[XAC] Recognized server version 1." + serverVersion + ".x");
+        }
 
         if(!this.getDataFolder().exists())
             this.getDataFolder().mkdir();

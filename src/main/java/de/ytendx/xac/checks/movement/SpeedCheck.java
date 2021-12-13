@@ -32,10 +32,10 @@ public class SpeedCheck implements Listener {
         if(XACMain.getInstance().getDetectionAssistant().isReceivingDamage(event.getPlayer())){
             return;
         }
-        if(event.getFrom().clone().subtract(0, 1, 0).getBlock().getType().equals(Material.SLIME_BLOCK)
-        || event.getTo().clone().subtract(0, 1, 0).getBlock().getType().equals(Material.SLIME_BLOCK)
-                || event.getFrom().getBlock().getType().equals(Material.SLIME_BLOCK)
-                || event.getTo().getBlock().getType().equals(Material.SLIME_BLOCK)){
+        if(event.getFrom().clone().subtract(0, 1, 0).getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("slime")
+        || event.getTo().clone().subtract(0, 1, 0).getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("slime")
+                || event.getFrom().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("slime")
+                || event.getTo().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("slime")){
             return;
         }
 
@@ -72,7 +72,7 @@ public class SpeedCheck implements Listener {
             if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
         }
 
-        if(vectorDistance >= 0.615D && event.getFrom().getY() < event.getTo().getY()
+        if(vectorDistance >= 0.616D && event.getFrom().getY() < event.getTo().getY()
         && !event.getPlayer().getLocation().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("stair")
         && !event.getPlayer().getLocation().clone().subtract(0, 1, 0).getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("stair")){
             Notifyer.notify(event.getPlayer(), CheckType.SPEED_D);

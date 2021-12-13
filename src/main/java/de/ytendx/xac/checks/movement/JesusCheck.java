@@ -27,20 +27,20 @@ public class JesusCheck implements Listener {
     @EventHandler
     public void handleMove(PlayerMoveEvent event){
 
-        if(event.getFrom().getBlock().getType().equals(Material.SNOW)
-        || event.getFrom().getBlock().getType().equals(Material.WATER_LILY)
+        if(event.getFrom().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("snow")
+        || event.getFrom().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("lilly")
         || event.getFrom().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("slab")
-        || event.getFrom().getBlock().getType().equals(Material.CARPET)){
+        || event.getFrom().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("carpet")){
             return;
         }
 
         if(event.getFrom().getY() < event.getTo().getY() && event.getTo().clone().subtract(0, 1, 0).getBlock().getType().equals(Material.getMaterial("WATER"))
-        && !event.getTo().clone().getBlock().getType().equals(Material.getMaterial("WATER"))){
+        && !event.getTo().clone().getBlock().getType().equals(Material.getMaterial("WATER")) && XACMain.getInstance().getServerVersion() < 13){
             Notifyer.notify(event.getPlayer(), CheckType.JESUS_A);
             if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
         }
 
-        if(Math.round(event.getFrom().getY()) == Math.round(event.getTo().getY())
+        if(Math.round(event.getFrom().getY()) == Math.round(event.getTo().getY()) && XACMain.getInstance().getServerVersion() < 13
         && event.getTo().clone().subtract(0, 1, 0).getBlock().getType().equals(Material.getMaterial("WATER"))){
             Notifyer.notify(event.getPlayer(), CheckType.JESUS_B);
             if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());

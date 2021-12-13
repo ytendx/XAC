@@ -32,7 +32,7 @@ public class MotionCheck implements Listener {
             return;
         }
 
-        if(event.getFrom().clone().subtract(0, 1, 0).getBlock().getType().equals(Material.SLIME_BLOCK)){
+        if(event.getFrom().clone().subtract(0, 1, 0).getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("slime")){
             return;
         }
 
@@ -70,13 +70,15 @@ public class MotionCheck implements Listener {
                 Notifyer.notify(event.getPlayer(), CheckType.MOTION_C);
                 if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
             }
-            if(MathUtil.getAmount(xdistance) >= 0.65){
-                Notifyer.notify(event.getPlayer(), CheckType.MOTION_D);
-                if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
-            }
-            if(MathUtil.getAmount(zdistance) >= 0.65){
-                Notifyer.notify(event.getPlayer(), CheckType.MOTION_D);
-                if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
+            if(!event.getPlayer().getLocation().clone().subtract(0, 1, 0).getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("stairs")){
+                if(MathUtil.getAmount(xdistance) >= 0.65){
+                    Notifyer.notify(event.getPlayer(), CheckType.MOTION_D);
+                    if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
+                }
+                if(MathUtil.getAmount(zdistance) >= 0.65){
+                    Notifyer.notify(event.getPlayer(), CheckType.MOTION_D);
+                    if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
+                }
             }
         }
 
@@ -97,11 +99,13 @@ public class MotionCheck implements Listener {
             if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
         }
 
-        if(event.getPlayer().getFallDistance() == 0
-                && event.getTo().toVector().distance(event.getFrom().toVector()) > 0.79D && !event.getPlayer().isOnGround()
-                && event.getFrom().getY() <= event.getTo().getY()){
-            Notifyer.notify(event.getPlayer(), CheckType.MOTION_H);
-            if(!XACMain.getPlugin(XACMain.class).isSilent())event.setCancelled(true);
+        if(!event.getPlayer().getLocation().clone().subtract(0, 1, 0).getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("stairs")){
+            if(event.getPlayer().getFallDistance() == 0
+                    && event.getTo().toVector().distance(event.getFrom().toVector()) > 0.79D && !event.getPlayer().isOnGround()
+                    && event.getFrom().getY() <= event.getTo().getY()){
+                Notifyer.notify(event.getPlayer(), CheckType.MOTION_H);
+                if(!XACMain.getPlugin(XACMain.class).isSilent())event.setCancelled(true);
+            }
         }
 
     }
