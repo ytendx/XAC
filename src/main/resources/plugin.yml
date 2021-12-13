@@ -1,6 +1,12 @@
 name: XAC
-version: 1.0
+version: BETA-1.1
 author: ytendx
+description: This is a Bukkit-Event based anti-cheat made out of a challenge
+website: https://www.spigotmc.org/resources/xanticheat.98334/
+api-version: 1.13
 main: de.ytendx.xac.XACMain
 commands:
   xac:
+    aliases:
+      - xanticheat
+    description: The main command of the AntiCheat.

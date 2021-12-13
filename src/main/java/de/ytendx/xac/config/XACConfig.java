@@ -15,9 +15,13 @@ public class XACConfig {
     private String notifyPermission;
     private String kickMessage;
     private boolean kickCheater;
+    private boolean ignoreExperimentalFlags;
+    private int violationResetTicks;
 
     public static XACConfig getDefault(){
-        return new XACConfig(true, true, true, "xac.notify", "§cYou were kicked cause of cheating.", true);
+        return new XACConfig(true, true, true, "xac.notify",
+                "§cYou were kicked cause of cheating.", true, false, 20*60*2
+        );
     }
 
     public String toString(){

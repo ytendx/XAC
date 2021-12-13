@@ -9,6 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
 
+import java.util.Locale;
+
 public class NoWebCheck implements Listener {
 
     public NoWebCheck(Plugin plugin) {
@@ -17,7 +19,7 @@ public class NoWebCheck implements Listener {
 
     @EventHandler
     public void handleMove(PlayerMoveEvent event){
-        if(event.getFrom().getBlock().getType().equals(Material.WEB) && event.getTo().getBlock().getType().equals(Material.WEB)){
+        if(event.getFrom().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("web") && event.getTo().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("web")){
             if(event.getFrom().distance(event.getTo()) > 0.18){
                 Notifyer.notify(event.getPlayer(), CheckType.NOWEB_A);
                 if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());

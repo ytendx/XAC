@@ -2,6 +2,7 @@ package de.ytendx.xac.helper;
 
 import de.ytendx.xac.XACMain;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -43,6 +44,9 @@ public class FalseDetectionAssistant implements Listener {
     @EventHandler
     public void handleMove(PlayerMoveEvent event){
         if(event.getPlayer().getLocation().clone().subtract(0, 1, 0).getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("slime")){
+            receivingDamage(event.getPlayer());
+        }
+        if(!event.getPlayer().getEyeLocation().clone().subtract(0, -1, 0).getBlock().getType().equals(Material.AIR)){
             receivingDamage(event.getPlayer());
         }
     }
