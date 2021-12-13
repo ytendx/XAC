@@ -41,6 +41,10 @@ public class FlyCheck implements Listener {
                 return;
             }
 
+            if(XACMain.getInstance().getDetectionAssistant().isReceivingDamage(event.getPlayer())){
+                return;
+            }
+
             if(event.getPlayer().isFlying()){
                 Notifyer.notify(event.getPlayer(), CheckType.FLY_A);
                 if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());

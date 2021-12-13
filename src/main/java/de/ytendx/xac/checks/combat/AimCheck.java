@@ -44,7 +44,7 @@ public class AimCheck implements Listener {
 
         if(!VectorUtil.getLookingAt((Player) event.getDamager(), (LivingEntity) event.getEntity())){
             if(notVectorPacket.containsKey(((Player) event.getDamager()).getPlayer())){
-                if(notVectorPacket.get(((Player) event.getDamager()).getPlayer()) > 2){
+                if(notVectorPacket.get(((Player) event.getDamager()).getPlayer()) > 3){
                     Notifyer.notify(((Player) event.getDamager()).getPlayer(), CheckType.AIM_A);
                 }
                 notVectorPacket.replace(((Player) event.getDamager()).getPlayer(), notVectorPacket.get(((Player) event.getDamager()).getPlayer())+1);

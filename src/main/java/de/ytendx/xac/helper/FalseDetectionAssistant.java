@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.Locale;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -17,9 +18,6 @@ public class FalseDetectionAssistant implements Listener {
     public FalseDetectionAssistant() {
         this.currentDamageReceivingTargets = new CopyOnWriteArrayList<>();
         XACMain.getInstance().getServer().getPluginManager().registerEvents(this, XACMain.getInstance());
-        Bukkit.getScheduler().runTaskTimerAsynchronously(XACMain.getInstance(), () -> {
-            this.currentDamageReceivingTargets = new CopyOnWriteArrayList<>();
-        }, 0, 20);
     }
 
     public boolean isReceivingDamage(Player player){
@@ -27,13 +25,25 @@ public class FalseDetectionAssistant implements Listener {
     }
 
     public void receivingDamage(Player player){
-        if(!currentDamageReceivingTargets.contains(player)) currentDamageReceivingTargets.add(player);
+        if(!currentDamageReceivingTargets.contains(player)) {
+            currentDamageReceivingTargets.add(player);
+            Bukkit.getScheduler().runTaskLaterAsynchronously(XACMain.getInstance(), () -> {
+                currentDamageReceivingTargets.remove(player);
+            }, 20*3);
+        }
     }
 
     @EventHandler
     public void handleDamage(EntityDamageEvent event){
-        if(event.getEntity() instanceof Player && event.getCause().toString().toLowerCase(Locale.ROOT).contains("explosion")){
+        if(event.getEntity() instanceof Player){
             receivingDamage((Player) event.getEntity());
+        }
+    }
+
+    @EventHandler
+    public void handleMove(PlayerMoveEvent event){
+        if(event.getPlayer().getLocation().clone().subtract(0, 1, 0).getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("slime")){
+            receivingDamage(event.getPlayer());
         }
     }
 }

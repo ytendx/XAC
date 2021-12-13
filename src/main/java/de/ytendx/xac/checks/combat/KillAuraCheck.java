@@ -62,7 +62,7 @@ public class KillAuraCheck implements Listener {
             event.setCancelled(true);
         }
 
-        if(Math.round(((Player) event.getDamager()).getEyeLocation().getY())-1 > Math.round(event.getEntity().getLocation().getY())
+        /*if(Math.round(((Player) event.getDamager()).getEyeLocation().getY())-1 > Math.round(event.getEntity().getLocation().getY())
         && player.getEyeLocation().getPitch() < 0){
             Notifyer.notify((Player) event.getDamager(), CheckType.KILLAURA_C);
         }
@@ -70,7 +70,7 @@ public class KillAuraCheck implements Listener {
         if(Math.round(((Player) event.getDamager()).getEyeLocation().getY())+1 < Math.round(event.getEntity().getLocation().getY())
                 && player.getEyeLocation().getPitch() > 60){
             Notifyer.notify((Player) event.getDamager(), CheckType.KILLAURA_C);
-        }
+        }*/
 
         if(player.getEyeLocation().getYaw() < 100 && player.getEyeLocation().getYaw() > -100
         && event.getEntity().getLocation().getZ()-event.getEntity().getLocation().getZ() > 3

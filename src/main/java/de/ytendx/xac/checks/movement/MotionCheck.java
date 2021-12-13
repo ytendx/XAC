@@ -70,11 +70,11 @@ public class MotionCheck implements Listener {
                 Notifyer.notify(event.getPlayer(), CheckType.MOTION_C);
                 if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
             }
-            if(MathUtil.getAmount(xdistance) >= 0.61){
+            if(MathUtil.getAmount(xdistance) >= 0.65){
                 Notifyer.notify(event.getPlayer(), CheckType.MOTION_D);
                 if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
             }
-            if(MathUtil.getAmount(zdistance) >= 0.61){
+            if(MathUtil.getAmount(zdistance) >= 0.65){
                 Notifyer.notify(event.getPlayer(), CheckType.MOTION_D);
                 if(!XACMain.getPlugin(XACMain.class).isSilent())event.getPlayer().teleport(event.getFrom());
             }
