@@ -4,6 +4,7 @@ import de.ytendx.xac.notify.Notifyer;
 import de.ytendx.xac.notify.type.CheckType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -18,12 +19,16 @@ public class AutoClickerCheck implements Listener {
     private ConcurrentHashMap<String, Integer> clicksPerSecond;
     private ConcurrentHashMap<String, Integer> lastClicksperSecond;
     private ConcurrentHashMap<String, Integer> last2ClicksperSecond;
+    private ConcurrentHashMap<Player, Long> lastClick;
+    private ConcurrentHashMap<Player, Long> lastLickDiff;
     private final int MAX_CPS = 20;
 
     public AutoClickerCheck(Plugin plugin) {
         this.clicksPerSecond = new ConcurrentHashMap<>();
         this.lastClicksperSecond = new ConcurrentHashMap<>();
         this.last2ClicksperSecond = new ConcurrentHashMap<>();
+        this.lastClick = new ConcurrentHashMap<>();
+        this.lastLickDiff = new ConcurrentHashMap<>();
 
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
 
@@ -75,6 +80,29 @@ public class AutoClickerCheck implements Listener {
             clicksPerSecond.put(event.getDamager().getName(), 1);
         }else{
             clicksPerSecond.put(event.getDamager().getName(), clicksPerSecond.get(event.getDamager().getName())+1);
+        }
+        if(lastClick.containsKey((Player) event.getDamager())){
+            long lastClickMili = lastClick.get((Player) event.getDamager());
+            long currentDif = System.currentTimeMillis() - lastClickMili;
+
+            if(currentDif < 1){
+                Notifyer.notify((Player) event.getDamager(), CheckType.AUTO_CLICKER_D);
+            }
+
+            if(lastLickDiff.containsKey((Player) event.getDamager())){
+
+                if(currentDif == lastLickDiff.get((Player) event.getDamager())){
+                    Notifyer.notify((Player) event.getDamager(), CheckType.AUTO_CLICKER_E);
+                }
+
+                lastLickDiff.replace((Player) event.getDamager(), currentDif);
+            }else{
+                lastLickDiff.put((Player) event.getDamager(), System.currentTimeMillis() - lastClickMili);
+            }
+
+            lastClick.replace((Player) event.getDamager(), System.currentTimeMillis());
+        }else{
+            lastClick.put((Player) event.getDamager(), System.currentTimeMillis());
         }
     }
 
