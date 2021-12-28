@@ -6,8 +6,11 @@ import lombok.Getter;
 public enum CheckType {
 
     AIM_A("AimA", 5, false),
-    AIM_B("AimB", 10, true),
-    AIM_C("AimC", 3, false),
+    AIM_B("AimB", 20, false),
+    AIM_C("AimC", 15, true),
+    AIM_D("AimD", 15, true),
+    AIM_E("AimE", 15, true),
+    AIM_F("AimF", 15, true),
     AUTO_CLICKER_A("AutoClickerA", 10, false),
     AUTO_CLICKER_B("AutoClickerB", 3, false),
     AUTO_CLICKER_C("AutoClickerC", 15, true),

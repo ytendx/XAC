@@ -3,6 +3,7 @@ package de.ytendx.xac.checks.movement;
 import de.ytendx.xac.XACMain;
 import de.ytendx.xac.notify.Notifyer;
 import de.ytendx.xac.notify.type.CheckType;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,6 +32,10 @@ public class JesusCheck implements Listener {
         || event.getFrom().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("lilly")
         || event.getFrom().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("slab")
         || event.getFrom().getBlock().getType().toString().toLowerCase(Locale.ROOT).contains("carpet")){
+            return;
+        }
+
+        if(event.getPlayer().getGameMode().equals(GameMode.CREATIVE) || event.getPlayer().getGameMode().equals(GameMode.SPECTATOR)){
             return;
         }
 

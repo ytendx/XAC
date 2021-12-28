@@ -93,15 +93,21 @@ public class AimCheck implements Listener {
                     float deltaPitch = Math.abs(container.pitch - lastPitch);
                     float deltaYaw = Math.abs(container.yaw - lastYaw);
 
-                    if(
-                            (deltaYaw > 1.1 && deltaPitch == 0 && container.pitch < 89 && container.yaw != 0 && container.pitch != 0)
-                            || (deltaYaw % .5 == 0 && deltaYaw != 0 && container.pitch != 0)
-                            || (deltaYaw == container.yaw && container.pitch < 90 && deltaYaw > .03 && deltaYaw != 0)
-                    ){
+                    if(deltaYaw % .5 == 0 && deltaYaw != 0 && container.pitch != 0){
                         if(!invalidVerboseCount.containsKey(player)) invalidVerboseCount.put(player, 1);
                         else invalidVerboseCount.replace(player, invalidVerboseCount.get(player)+1);
-                        Notifyer.notify(player, CheckType.AIM_C);
-                    }else{
+                        Notifyer.notify(player, CheckType.AIM_D);
+                    }else if(deltaYaw == container.yaw && container.pitch < 90 && deltaYaw > .03 && deltaYaw != 0){
+                        if(!invalidVerboseCount.containsKey(player)) invalidVerboseCount.put(player, 1);
+                        else invalidVerboseCount.replace(player, invalidVerboseCount.get(player)+1);
+                        Notifyer.notify(player, CheckType.AIM_E);
+                    }
+                    else if((deltaPitch % 1 == 0 || deltaYaw % 1 == 0) && deltaPitch != 0 && deltaYaw != 0){
+                        if(!invalidVerboseCount.containsKey(player)) invalidVerboseCount.put(player, 1);
+                        else invalidVerboseCount.replace(player, invalidVerboseCount.get(player)+1);
+                        Notifyer.notify(player, CheckType.AIM_F);
+                    }
+                    else{
                         if(invalidVerboseCount.containsKey(player)) if(invalidVerboseCount.get(player) > 0)
                             invalidVerboseCount.replace(player, invalidVerboseCount.get(player)-1);
                     }
@@ -111,7 +117,7 @@ public class AimCheck implements Listener {
                     lastYaw = container.yaw;
                     lastPitch = container.pitch;
                 }
-                if(sameAmount > 0){
+                if(sameAmount > 3){
                     Notifyer.notify(player, CheckType.AIM_B);
                     aimings.remove(player);
                 }
